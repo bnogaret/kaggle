@@ -1,3 +1,6 @@
 # File for rstudio
 .Rproj
+.Rproj.user
 
+# File for pycharm
+/*/.idea

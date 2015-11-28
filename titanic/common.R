@@ -1,13 +1,16 @@
 library(stringr) # for str_extract
 library(plyr) # for join
+library(rpart)
 
 predict_Age_Fare <- function(full, data) {
-    # Create linear models for predicting missing values in AGE and FARE on all the data
-    age.mod <- lm(Age ~ Pclass + Sex + SibSp + Parch + Fare, data = full[!is.na(full$Age),])
-    fare.mod<- lm(Fare ~ Pclass + Sex + SibSp + Parch + Age, data = full[!is.na(full$Fare),])
+    # Decision tree for missing data
+    age_rpart <- rpart(Age ~ Pclass + Sex + Embarked + Title + Sex + FamilySize + SibSp + Parch + Fare,
+                       data = full[!is.na(full$Age),],
+                       method='anova')
     # Predict the missing data
-    data$Age[is.na(data$Age)] <- predict(age.mod, data)[is.na(data$Age)]
-    data$Fare[is.na(data$Fare)] <- predict(fare.mod, data)[is.na(data$Fare)]
+    data$Age[is.na(data$Age)] <- predict(age_rpart, data)[is.na(data$Age)]
+    # Replace NA fare value by the median one
+    data$Fare[is.na(data$Fare)] <- median(data$Fare, na.rm = TRUE)
     return(data)
 }
 
@@ -42,25 +45,43 @@ add_feature_Title <- function(data) {
     return(data)
 }
 
+add_feature_Mother <- function(data) {
+    data$Mother <- 0
+    data$Mother[data$Sex=='female' & data$Parch>0 & data$Age>18 & data$Title!='Miss'] <- 1
+    return(data)
+}
+
 clean <- function(train, test) {
-    full <- join(test, train, type="full")
-    train <- predict_Age_Fare(full, train)
-    test <- predict_Age_Fare(full, test)
+    # Exclude the column Survived
+    full <- join(train[,-2], test, type="full")
 
-    # Add Child
-    train <- add_feature_Child(train)
-    test <- add_feature_Child(test)
+    # Make sure it has an Embarked
+    full$Embarked[full$Embarked == ""] <- "S"
 
-    # Add familySize
-    train <- add_feature_FamilySize(train)
-    test <- add_feature_FamilySize(test)
+    # Add the feature "FamilySize"
+    full <- add_feature_FamilySize(full)
 
-    # Add a title
-    train <- add_feature_Title(train)
-    test <- add_feature_Title(test)
+    # Add the feature "Title"
+    full <- add_feature_Title(full)
 
-    train$Embarked[train$Embarked == ""] <- "S"
-    test$Embarked[test$Embarked == ""] <- "S"
+    # Predict the variable Age and Fare (there are some missing data for this value)
+    # See exploratory.R
+    full <- predict_Age_Fare(full, full)
 
-    return(list(train=train, test=test))
+    # Add the feature "Child"
+    full <- add_feature_Child(full)
+
+    # Add the feature "Mother"
+    full <- add_feature_Mother(full)
+
+    # Make sure some columns are categorical variable
+    full$Title <- as.factor(full$Title)
+    full$Embarked <- as.factor(full$Embarked)
+
+    # Split the data to train and test
+    train_temp <- full[1:nrow(train),]
+    train_temp$Survived <- train$Survived
+    test_temp <- full[-(1:nrow(train)),]
+
+    return(list(train=train_temp, test=test_temp))
 }
