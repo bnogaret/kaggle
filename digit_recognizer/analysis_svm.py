@@ -7,7 +7,8 @@ from sklearn.decomposition import PCA
 # 0.97914 pca.pca.explained_variance_ratio_ > 0.9 (num = 87)
 # 0.96800 pca.pca.explained_variance_ratio_ > 0.8 (num = 43)
 # 0.98243 with num = 35
-# 0.96800 with num = 0.8 and C=10
+# 0.98529 with num = 0.8 and C=10
+# 0.98429 with num = 0.8 and C=2
 
 start_time_read = time.time()
 dataset_train = pd.read_csv("./data/train.csv", encoding="utf-8")
@@ -22,7 +23,7 @@ test = dataset_test.values
 # Get PCA
 start_time_pca = time.time()
 # Want PCA to have explained_variance_ratio_ > 0.9 (as 0 < num < 1)
-pca = PCA(n_components=0.9, whiten=True)
+pca = PCA(n_components=0.8, whiten=True)
 train_pca = pca.fit_transform(train)
 end_time_pca = time.time()
 

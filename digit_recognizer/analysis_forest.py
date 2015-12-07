@@ -29,8 +29,8 @@ pred = rf.predict(test)
 np.savetxt('./data/solution_random_forest.csv',
            np.c_[range(1,len(test)+1), pred],
            delimiter=',',
-           header = 'ImageId,Label',
-           comments = '',
+           header='ImageId,Label',
+           comments='',
            fmt='%d')
 
 print("Time to read the data : %s || Time to train : %s" %

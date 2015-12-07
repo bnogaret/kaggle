@@ -12,7 +12,7 @@ from sklearn.manifold import TSNE
 # https://www.kaggle.com/kobakhit/digit-recognizer/digit-recognizer-in-python-using-cnn/notebook
 # in ipython %run exploratory.py
 
-NB_ROWS_TSNE = 2500
+NB_ROWS_TSNE = 2000
 
 dataset_train = pd.read_csv("./data/train.csv", encoding="utf-8")
 dataset_test = pd.read_csv("./data/test.csv", encoding="utf-8")
