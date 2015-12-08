@@ -5,4 +5,7 @@
 # File for pycharm
 /*/.idea
 
+# Solution for whats_cooking
+/whats_cooking/data/*.csv
+
 kaggle.git/*
