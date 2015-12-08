@@ -7,7 +7,7 @@
 /*/.idea
 
 # Solution for the different project
-/**/data/solution*.csv
+/*/data/solution*
 
 # File git
 kaggle.git/*
