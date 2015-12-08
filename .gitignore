@@ -6,7 +6,8 @@
 # File for pycharm
 /*/.idea
 
-# Solution for whats_cooking
-/whats_cooking/data/*.csv
+# Solution for the different project
+/**/data/solution*.csv
 
+# File git
 kaggle.git/*
