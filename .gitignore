@@ -16,4 +16,4 @@
 kaggle.git/*
 
 # File created by python
-__pycache__/*
+/**/__pycache__/*
