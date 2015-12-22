@@ -6,8 +6,14 @@
 # File for pycharm
 /*/.idea
 
+# Profiler file (see line_profiler)
+*.py.lprof
+
 # Solution for the different project
 /*/data/solution*
 
 # File git
 kaggle.git/*
+
+# File created by python
+__pycache__/*
