@@ -10,7 +10,7 @@ library(randomForest)
 source("common.R")
 
 train <- fromJSON("./data/train.json", flatten=TRUE)
-test <- fromJSON("./data/test.json", , flatten=TRUE)
+test <- fromJSON("./data/test.json", flatten=TRUE)
 
 # Get the document term matrix (fusion of train and test)
 myDtm <- getDtmAsDf(train, test, 0.99)
