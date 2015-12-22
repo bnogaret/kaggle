@@ -30,6 +30,8 @@
 # R:
 
 # Python:
+* ## Profiling :
+    - line_profiler [example](http://www.appneta.com/blog/line-profiler-python/)
 
 # Config :
 
