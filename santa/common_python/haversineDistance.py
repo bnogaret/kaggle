@@ -71,5 +71,4 @@ def haversine_distance_array_point(array, point, angle='rad'):
     """
     # Create an array by repeating the point p
     p = np.array([[point[0], point[1]], ] * array.shape[0])
-    print(p)
     return haversine_distance_arrays(array, p, angle)
