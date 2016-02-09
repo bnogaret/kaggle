@@ -9,17 +9,14 @@ import matplotlib.cm as cm
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
-# https://www.kaggle.com/kobakhit/digit-recognizer/digit-recognizer-in-python-using-cnn/notebook
-# in ipython %run exploratory.py
+from exploratoryUtils import *
 
 NB_ROWS_TSNE = 2000
 
 dataset_train = pd.read_csv("./data/train.csv", encoding="utf-8")
 dataset_test = pd.read_csv("./data/test.csv", encoding="utf-8")
 
-print(dataset_train.info())
-print(dataset_train.describe())
-print(dataset_train.head(n=1))
+basic_info_df(dataset_train)
 
 # Get an numpy ndarray of the label (first column of the dataset_train)
 labels = dataset_train[[0]].values

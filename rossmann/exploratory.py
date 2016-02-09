@@ -5,17 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
-def proportion_null_column(df):
-    return (df.isnull().sum() / df.shape[0]) * 100
-
-
-def basic_info_df(df):
-    print(df.columns)
-    print(df.info(verbose=True))
-    print(df.describe())
-    print(df.head(n=1))
-    print(proportion_null_column(df))
+from exploratoryUtils import basic_info_df
 
 
 dataset_store = pd.read_csv("./data/store.csv", encoding="utf-8")

@@ -4,12 +4,7 @@ matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
-def basic_info_df(df):
-    print(df.columns)
-    print(df.info(verbose=True))
-    print(df.describe())
-    print(df.head(n=1))
+from exploratoryUtils import basic_info_df
 
 
 dataset_gift = pd.read_csv("./data/gifts.csv")
