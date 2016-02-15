@@ -9,7 +9,8 @@ def basic_info_series(c):
     :return:
     """
     print(c.describe())
-    print("Number of null values %d (%d %%)" % (c.isnull().sum(), proportion_null_df(c)))
+    print(c.value_counts(dropna=False))
+    print("Number of null (include 0) values %d (%d %%)" % (c.isnull().sum(), proportion_null_df(c)))
 
 
 def proportion_null_df(df):
